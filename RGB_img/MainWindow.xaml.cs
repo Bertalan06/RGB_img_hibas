@@ -52,19 +52,18 @@ namespace RGB_img
             {
                 for (int y = 0; y < Columns; y++)
                 {
-                    Pixel p = image.Pixels[y, x];
+                    Pixel p = image.Pixels[x, y]; //megvolt cserélve
 
                     var rect = new Rectangle
                     {
                         Width = CellSize,
                         Height = CellSize,
-                        Fill = new SolidColorBrush(
-                            Color.FromArgb(p.R, p.G, p.B))
+                        Fill = new SolidColorBrush(Color.FromRgb((byte)p.R, (byte)p.G, (byte)p.B)) //FromRGB és byte-ra alakítás
 
                     };
 
-                    Canvas.SetLeft(rect, x * CellSize);
-                    Canvas.SetTop(rect, y * CellSize);
+                    Canvas.SetLeft(rect, y * CellSize); //ebbe a kettőbe x, y cseréje
+                    Canvas.SetTop(rect, x * CellSize);
 
                     MainCanvas.Children.Add(rect);
                 }

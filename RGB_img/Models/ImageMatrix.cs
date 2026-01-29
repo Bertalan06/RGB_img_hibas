@@ -17,31 +17,33 @@ namespace RGB_img.Models
 
         public ImageMatrix()
         {
-            Pixels = new Pixel[Height, Width];
+            Pixels = new Pixel[Height, Width]; 
         }
 
         public void LoadFromFile(string filePath)
         {
             string[] lines = File.ReadAllLines(filePath);
 
-            if (lines.Length != Width)
+            if (lines.Length != Height) //Width-ről Height-re
                 throw new Exception("Hibás sorszám a fájlban.");
 
             for (int y = 0; y < Height; y++)
             {
-                string[] values = lines[y].Split(';');
+                string[] values = lines[y].Split(); //';' törlése
 
-                if (values.Length != Width * 3)
+                if (values.Length != Width * 3) 
                     throw new Exception($"Hibás adatszám a(z) {y}. sorban.");
 
                 int index = 0;
                 for (int x = 0; x < Width; x++)
                 {
-                    byte r = byte.Parse(values[index]);
-                    byte g = byte.Parse(values[index]);
-                    byte b = byte.Parse(values[index]);
+                    byte r = byte.Parse(values[index++]);
+                    byte g = byte.Parse(values[index++]);
+                    byte b = byte.Parse(values[index++]);
 
-                    Pixels[y, x] = new Pixel(r, g, b);
+                    Pixels[y,x] = new Pixel(r, g, b); 
+                    
+                    
                 }
             }
         }
